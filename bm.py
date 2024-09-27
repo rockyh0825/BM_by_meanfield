@@ -1,6 +1,7 @@
 import numpy as np
 from sklearn import datasets
 import matplotlib.pyplot as plt
+import sys
 
 class BoltzmannMachine:
     def __init__(self, height, width):
@@ -45,14 +46,14 @@ class BoltzmannMachine:
 # MNISTデータセットをロード
 digits = datasets.load_digits()
 
-# 数字6のインデックスを取得
-digit_6_indices = digits.target == 9
+# 指定した数字のインデックスを取得
+digit_indices = digits.target == int(sys.argv[1])
 
-# 数字6のデータのみを抽出
-digit_6_data = digits.data[digit_6_indices]
+# 指定した数字のデータのみを抽出
+digit_data = digits.data[digit_indices]
 
 # データを0-1の範囲に正規化
-normalized_data = digit_6_data / 16.0
+normalized_data = digit_data / 16.0
 
 # 0.5を閾値として+1,-1に変換
 binary_data = np.where(normalized_data >= 0.5, 1, -1)
